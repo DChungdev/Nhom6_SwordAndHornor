@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c920bae9bd3ed24c90b7feb2a9ad71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 10
   health: {fileID: 0}
   animator: {fileID: 4675361795524772470}
   rb: {fileID: 3493881954591066432}
@@ -212,10 +212,11 @@ MonoBehaviour:
   jumpHeight: 14
   isGround: 1
   attackPoint: {fileID: 3413973083302865125}
-  attackRadius: 1
+  attackRadius: 1.8
   attackLayer:
     serializedVersion: 2
     m_Bits: 256
+  restartButton: {fileID: 0}
 --- !u!95 &4675361795524772470
 Animator:
   serializedVersion: 5

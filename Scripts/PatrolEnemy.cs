@@ -31,6 +31,8 @@ public class PatrolEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (!FindObjectOfType<GameManager>().isGameActive) return;
+
         if (maxHealth <= 0)
         {
             Die();
@@ -107,6 +109,7 @@ public class PatrolEnemy : MonoBehaviour
         {
             return;
         }
+        animator.SetTrigger("Hurt");
         maxHealth -= damage;
         //CameraShake.instance.Shake(.11f, 3f);
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,6 +22,13 @@ public class PlayerController : MonoBehaviour
     public float attackRadius = 1.8f;
     public LayerMask attackLayer;
 
+    private bool isDead = false;
+    public Button restartButton;
+
+    private float m_timeSinceAttack = 0.0f;
+    private int m_currentAttack = 0;
+
+    private bool block = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +38,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead == true)
+        {
+            return;
+        }
+
         if (maxHealth <= 0)
         {
             Die();
+            animator.SetTrigger("Death");
+            isDead = true;
         }
+
+        // Increase timer that controls attack combo
+        m_timeSinceAttack += Time.deltaTime;
 
         health.text = maxHealth.ToString();
 
@@ -66,15 +84,51 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Run", 0f);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.25f)
         {
-            animator.SetTrigger("Attack");
+
+            m_currentAttack++;
+
+            // Loop back to one after third attack
+            if (m_currentAttack > 3)
+                m_currentAttack = 1;
+
+            // Reset Attack combo if time since last attack is too large
+            if (m_timeSinceAttack > 1.0f)
+                m_currentAttack = 1;
+
+            // Call one of three attack animations "Attack1", "Attack2", "Attack3"
+            animator.SetTrigger("Attack" + m_currentAttack);
+
+            // Reset timer
+            m_timeSinceAttack = 0.0f;
         }
+
+        // Block
+        else if (Input.GetMouseButtonDown(1))
+        {
+            block = true;
+            animator.SetTrigger("Block");
+            animator.SetBool("IdleBlock", true);
+        }
+
+        else if (Input.GetMouseButtonUp(1))
+        {
+            block = false;
+            animator.SetBool("IdleBlock", false);
+        }
+            
     }
 
     private void FixedUpdate()
     {
         transform.position += new Vector3(movement, 0f, 0f) * Time.fixedDeltaTime * moveSpeed;
+
+        if (isDead)
+        {
+            restartButton.gameObject.SetActive(true);
+        }
+
     }
 
     void Jump()
@@ -88,13 +142,20 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+        if (block)
+        {
+            animator.SetTrigger("BlockAttack");
+            return;
+        }
         maxHealth -= damage;
+        animator.SetTrigger("Hurt");
         //CameraShake.instance.Shake(.11f, 3f);
     }
     void Die()
     {
-        Debug.Log("Player died.");
+        
         FindObjectOfType<GameManager>().isGameActive = false;
+
         //Destroy(this.gameObject);
     }
 
@@ -135,4 +196,10 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump", false);
         }
     }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
 }
