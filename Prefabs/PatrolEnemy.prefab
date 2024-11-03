@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa35e72b8390c5247abb2b1011b93157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 6
   facingLeft: 1
   moveSpeed: 2
   checkPoint: {fileID: 3594514214716332322}
