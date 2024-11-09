@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public int maxHealth = 5;
-    public Text health;
+    public int currentHealth;
+    public ThanhMau thanhMau;
+    public Text hp;
 
     public Animator animator;
     public Rigidbody2D rb;
@@ -32,7 +34,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        currentHealth = maxHealth;
+        thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
+        hp.text = currentHealth + " / " + maxHealth;
     }
 
     // Update is called once per frame
@@ -43,7 +47,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (maxHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
             animator.SetTrigger("Death");
@@ -53,7 +57,7 @@ public class PlayerController : MonoBehaviour
         // Increase timer that controls attack combo
         m_timeSinceAttack += Time.deltaTime;
 
-        health.text = maxHealth.ToString();
+        
 
         movement = Input.GetAxis("Horizontal");
 
@@ -138,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (maxHealth <= 0)
+        if (currentHealth <= 0)
         {
             return;
         }
@@ -147,8 +151,10 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("BlockAttack");
             return;
         }
-        maxHealth -= damage;
+        currentHealth -= damage;
         animator.SetTrigger("Hurt");
+        hp.text = currentHealth + " / " + maxHealth;
+        thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
         //CameraShake.instance.Shake(.11f, 3f);
     }
     void Die()
