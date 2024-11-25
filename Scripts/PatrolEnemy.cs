@@ -6,6 +6,9 @@ public class PatrolEnemy : MonoBehaviour
 {
 
     public int maxHealth = 5;
+    public int currentHealth;
+    public ThanhMau thanhMau;
+
     public bool facingLeft = true;
     public float moveSpeed = 2f;
     public Transform checkPoint;
@@ -25,7 +28,8 @@ public class PatrolEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHealth = maxHealth;
+        thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
     }
 
     // Update is called once per frame
@@ -33,7 +37,7 @@ public class PatrolEnemy : MonoBehaviour
     {
         //if (!FindObjectOfType<GameManager>().isGameActive) return;
 
-        if (maxHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -105,13 +109,14 @@ public class PatrolEnemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (maxHealth <= 0)
+        if (currentHealth <= 0)
         {
             return;
         }
         animator.SetTrigger("Hurt");
-        maxHealth -= damage;
+        currentHealth -= damage;
         //CameraShake.instance.Shake(.11f, 3f);
+        thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
     }
 
     void Die()

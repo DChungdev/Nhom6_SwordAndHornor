@@ -174,6 +174,10 @@ public class PlayerController : MonoBehaviour
             {
                 collInfo.gameObject.GetComponent<PatrolEnemy>().TakeDamage(1);
             }
+            if (collInfo.gameObject.GetComponent<BeeEnemy>() != null)
+            {
+                collInfo.gameObject.GetComponent<BeeEnemy>().TakeDamage(1);
+            }
         }
     }
 
