@@ -229,6 +229,8 @@ public class BeeEnemy : MonoBehaviour
     {
         Debug.Log(this.transform.name + " Died.");
         Destroy(this.gameObject);
+        // Thông báo cho SceneManagement
+        FindObjectOfType<SceneManagement>().OnEnemyDefeated();
     }
 
     private void OnDrawGizmosSelected()

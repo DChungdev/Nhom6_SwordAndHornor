@@ -128,7 +128,7 @@ MonoBehaviour:
   thanhMau: {fileID: 3398734153544128690}
   player: {fileID: 0}
   animator: {fileID: 1345319653635274991}
-  attackRange: 7
+  attackRange: 9
   chaseSpeed: 4
   retrieveDistance: 2.5
   flyUpDistance: 3
