@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad296b339811b994fb1b412ffa35647d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyCount: 0
 --- !u!4 &275654178
 Transform:
   m_ObjectHideFlags: 0
@@ -7443,11 +7444,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2159272115703500952, guid: c55ba64e6d0a5b441bdcd0fdbffdac8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.4
+      value: 35.97
       objectReference: {fileID: 0}
     - target: {fileID: 2159272115703500952, guid: c55ba64e6d0a5b441bdcd0fdbffdac8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.08
+      value: 1.11
       objectReference: {fileID: 0}
     - target: {fileID: 2159272115703500952, guid: c55ba64e6d0a5b441bdcd0fdbffdac8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7496,6 +7497,10 @@ PrefabInstance:
     - target: {fileID: 8154383655061649170, guid: c55ba64e6d0a5b441bdcd0fdbffdac8c, type: 3}
       propertyPath: m_Name
       value: PatrolEnemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154383655061649170, guid: c55ba64e6d0a5b441bdcd0fdbffdac8c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7804,6 +7809,10 @@ PrefabInstance:
     - target: {fileID: 8154383655061649170, guid: c55ba64e6d0a5b441bdcd0fdbffdac8c, type: 3}
       propertyPath: m_Name
       value: PatrolEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154383655061649170, guid: c55ba64e6d0a5b441bdcd0fdbffdac8c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

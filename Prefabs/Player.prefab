@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4731083924376498805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5941338550706875735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6670848151690705918}
+  m_Layer: 7
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6670848151690705918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5941338550706875735}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4731083924376498805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6978095212430980447
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,6 +97,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3413973083302865125}
+  - {fileID: 6670848151690705918}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1328522712199079105
@@ -204,11 +236,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c920bae9bd3ed24c90b7feb2a9ad71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  health: {fileID: 0}
+  maxHealth: 20
+  currentHealth: 0
+  thanhMau: {fileID: 0}
+  hp: {fileID: 0}
+  mapName: Level1
   animator: {fileID: 4675361795524772470}
   rb: {fileID: 3493881954591066432}
-  moveSpeed: 5
+  moveSpeed: 6
   jumpHeight: 14
   isGround: 1
   attackPoint: {fileID: 3413973083302865125}
@@ -217,6 +252,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   restartButton: {fileID: 0}
+  groundCheck: {fileID: 6670848151690705918}
+  checkRadius: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!95 &4675361795524772470
 Animator:
   serializedVersion: 5

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public int currentHealth;
     public ThanhMau thanhMau;
     public Text hp;
+    public string mapName;
 
     public Animator animator;
     public Rigidbody2D rb;
@@ -31,6 +32,10 @@ public class PlayerController : MonoBehaviour
     private int m_currentAttack = 0;
 
     private bool block = false;
+
+    public Transform groundCheck; // Điểm kiểm tra vị trí gần chân nhân vật
+    public float checkRadius = 0.2f; // Bán kính kiểm tra
+    public LayerMask groundLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,7 +80,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && isGround)
         {
             Jump();
-            isGround = false;
+            //isGround = false;
             animator.SetBool("Jump", true);
         }
 
@@ -121,7 +126,14 @@ public class PlayerController : MonoBehaviour
             block = false;
             animator.SetBool("IdleBlock", false);
         }
-            
+
+        // Kiểm tra nếu nhân vật đứng trên mặt đất
+        isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+        if (isGround)
+        {
+            animator.SetBool("Jump", !isGround);
+        }
+        
     }
 
     private void FixedUpdate()
@@ -137,6 +149,8 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
+        //rb.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
+        rb.velocity = new Vector2(rb.velocity.x, 0); // Đặt vận tốc trục y về 0
         rb.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
     }
 
@@ -198,18 +212,31 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Ground")
-        {
-            isGround = true;
-            animator.SetBool("Jump", false);
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    //if(collision.gameObject.tag == "Ground")
+    //    //{
+    //    //    isGround = true;
+    //    //    animator.SetBool("Jump", false);
+    //    //}
+    //    if (collision.gameObject.tag == "Ground")
+    //    {
+    //        foreach (ContactPoint2D contact in collision.contacts)
+    //        {
+    //            // Kiểm tra nếu tiếp xúc từ phía dưới
+    //            if (contact.normal.y > 0.5f)
+    //            {
+    //                isGround = true;
+    //                animator.SetBool("Jump", false);
+    //                return; // Dừng kiểm tra thêm nếu đã xác nhận là mặt đất
+    //            }
+    //        }
+    //    }
+    //}
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(mapName);
     }
 
 }
