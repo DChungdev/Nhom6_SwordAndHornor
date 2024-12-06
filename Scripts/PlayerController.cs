@@ -192,6 +192,10 @@ public class PlayerController : MonoBehaviour
             {
                 collInfo.gameObject.GetComponent<BeeEnemy>().TakeDamage(1);
             }
+            if (collInfo.gameObject.GetComponent<BoarEnemy>() != null)
+            {
+                collInfo.gameObject.GetComponent<BoarEnemy>().TakeDamage(1);
+            }
         }
     }
 
