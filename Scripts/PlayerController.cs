@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck; // Điểm kiểm tra vị trí gần chân nhân vật
     public float checkRadius = 0.2f; // Bán kính kiểm tra
     public LayerMask groundLayer;
+
+    private bool isInTrap = false; // Kiểm tra xem nhân vật có ở trong bẫy không
+    private float trapTimer = 0f; // Bộ đếm thời gian cho bẫy
+    public float trapDamageInterval = 2f; // Thời gian giữa mỗi lần trừ máu
+    public int trapDamage = 1; // Lượng máu bị trừ mỗi lần
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +62,17 @@ public class PlayerController : MonoBehaviour
             Die();
             animator.SetTrigger("Death");
             isDead = true;
+        }
+
+        // Kiểm tra trừ máu khi nhân vật ở trong bẫy
+        if (isInTrap)
+        {
+            trapTimer += Time.deltaTime;
+            if (trapTimer >= trapDamageInterval)
+            {
+                TakeDamage(trapDamage);
+                trapTimer = 0f; // Reset thời gian
+            }
         }
 
         // Increase timer that controls attack combo
@@ -205,6 +221,43 @@ public class PlayerController : MonoBehaviour
         {
             FindObjectOfType<SceneManagement>().LoadLevel();
         }
+
+        // Hồi máu khi chạm vào bình máu
+        if (other.gameObject.tag == "HealthPotion")
+        {
+            Heal(1); // Hồi 1 máu (có thể thay đổi tùy ý)
+            Destroy(other.gameObject); // Xóa bình máu sau khi nhặt
+        }
+
+
+        if (other.gameObject.tag == "Trap")
+        {
+            isInTrap = true; // Đặt trạng thái nhân vật đang ở trong bẫy
+            trapTimer = 0f; // Reset bộ đếm khi vào bẫy
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Trap")
+        {
+            isInTrap = false; // Nhân vật rời khỏi bẫy
+            trapTimer = 0f; // Reset bộ đếm
+        }
+    }
+
+    // Phương thức hồi máu
+    public void Heal(int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth; // Đảm bảo máu không vượt quá tối đa
+        }
+
+        // Cập nhật giao diện máu
+        hp.text = currentHealth + " / " + maxHealth;
+        thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
     }
 
     void OnDrawGizmosSelected()
