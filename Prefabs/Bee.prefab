@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 9071220841767848698}
   - component: {fileID: 6714322496453018361}
   - component: {fileID: 7701226928515854378}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3468259606806596904}
   - component: {fileID: 3398734153544128690}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 1161576198201302044}
   - component: {fileID: 2324888341882080566}
   - component: {fileID: 8490549521857739220}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 1097702354792702903}
   - component: {fileID: 6826413157051887366}
   - component: {fileID: 7302828555467458086}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4497729705333288668}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}

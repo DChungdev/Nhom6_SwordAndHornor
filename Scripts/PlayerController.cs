@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
 
     private bool isInTrap = false; // Kiểm tra xem nhân vật có ở trong bẫy không
-    private float trapTimer = 0f; // Bộ đếm thời gian cho bẫy
+    private float trapTimer = 1f; // Bộ đếm thời gian cho bẫy
     public float trapDamageInterval = 2f; // Thời gian giữa mỗi lần trừ máu
     public int trapDamage = 1; // Lượng máu bị trừ mỗi lần
     // Start is called before the first frame update
@@ -187,6 +187,14 @@ public class PlayerController : MonoBehaviour
         thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
         //CameraShake.instance.Shake(.11f, 3f);
     }
+    public void ApplyKnockback(Vector2 direction)
+    {
+        if (rb != null)
+        {
+            // Thêm lực knockback theo hướng và cường độ
+            rb.AddForce(direction * 8f, ForceMode2D.Impulse); // Giá trị 5f là lực knockback, có thể thay đổi tùy ý
+        }
+    }
     void Die()
     {
         
@@ -212,6 +220,14 @@ public class PlayerController : MonoBehaviour
             {
                 collInfo.gameObject.GetComponent<BoarEnemy>().TakeDamage(1);
             }
+            if (collInfo.gameObject.GetComponent<MinatourEnemy>() != null)
+            {
+                collInfo.gameObject.GetComponent<MinatourEnemy>().TakeDamage(1);
+            }
+            if (collInfo.gameObject.GetComponent<WizardBoss>() != null)
+            {
+                collInfo.gameObject.GetComponent<WizardBoss>().TakeDamage(1);
+            }
         }
     }
 
@@ -233,7 +249,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Trap")
         {
             isInTrap = true; // Đặt trạng thái nhân vật đang ở trong bẫy
-            trapTimer = 0f; // Reset bộ đếm khi vào bẫy
+            trapTimer = 1f; // Reset bộ đếm khi vào bẫy
         }
     }
 
