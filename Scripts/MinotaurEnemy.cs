@@ -149,7 +149,7 @@ public class MinatourEnemy : MonoBehaviour
     }
     private IEnumerator AttackCoroutine()
     {
-        if(currentHealth <= 7)
+        if(currentHealth <= 8)
         {
             isAttacking = true; // Đặt cờ trạng thái đang tấn công
             animator.SetTrigger("taunt"); // Gửi trigger cho animation tấn công
