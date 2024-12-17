@@ -20,7 +20,7 @@ public class PatrolEnemy : MonoBehaviour
     public LayerMask layerMask;
     public bool inRange = false;
     public Transform player;
-    public float attackRange = 10f;
+    public float attackRange = 15f;
     public float retrieveDistance = 2.5f;
     public float chaseSpeed = 4f;
     public Animator animator;
