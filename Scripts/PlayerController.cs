@@ -228,6 +228,10 @@ public class PlayerController : MonoBehaviour
             {
                 collInfo.gameObject.GetComponent<WizardBoss>().TakeDamage(1);
             }
+            if (collInfo.gameObject.GetComponent<GoblinEnemy>() != null)
+            {
+                collInfo.gameObject.GetComponent<GoblinEnemy>().TakeDamage(1);
+            }
         }
     }
 
