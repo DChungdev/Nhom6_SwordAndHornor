@@ -1966,6 +1966,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1931208630}
+    - target: {fileID: 2950647619881453234, guid: 6b2e913e799a08a47bb94ecb85910294, type: 3}
+      propertyPath: beeAttackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: bddb08ba554604a4db337e0d7ce14565, type: 3}
     - target: {fileID: 4447969451610321552, guid: 6b2e913e799a08a47bb94ecb85910294, type: 3}
       propertyPath: m_LocalPosition.x
       value: 125.64
@@ -60026,7 +60030,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2dc5cb8ce9f8fda408ab0f0ba81ca8d6, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.9
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0

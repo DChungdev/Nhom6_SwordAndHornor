@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     private float trapTimer = 1f; // Bộ đếm thời gian cho bẫy
     public float trapDamageInterval = 2f; // Thời gian giữa mỗi lần trừ máu
     public int trapDamage = 1; // Lượng máu bị trừ mỗi lần
+
+    public AudioClip attackSound; // Âm thanh tấn công
     // Start is called before the first frame update
     void Start()
     {
@@ -205,6 +207,11 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
+        // Phát âm thanh tấn công tại vị trí của nhân vật
+        if (attackSound != null)
+        {
+            AudioSource.PlayClipAtPoint(attackSound, transform.position);
+        }
         Collider2D collInfo = Physics2D.OverlapCircle(attackPoint.position, attackRadius, attackLayer);
         if (collInfo)
         {
