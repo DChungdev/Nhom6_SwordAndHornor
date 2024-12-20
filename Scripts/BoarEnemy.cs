@@ -42,11 +42,20 @@ public class BoarEnemy : MonoBehaviour
     public Transform checkPoint;
     public float distance = 1f;
     public LayerMask layerMask;
+
+    // Thêm biến âm thanh
+    private AudioSource audioSource; // Đối tượng AudioSource để phát âm thanh
+    public AudioClip boarAttackSound; // Âm thanh tấn công của boar
+
     void Start()
     {
         originalPosition = transform.position; // Ghi nhớ vị trí ban đầu
         currentHealth = maxHealth;
         thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
+
+        // Tạo AudioSource và gán cho đối tượng này
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false; // Không phát âm thanh ngay khi khởi tạo
     }
 
     void Update()
@@ -106,6 +115,8 @@ public class BoarEnemy : MonoBehaviour
                 {
                     isAttacking = true;
 
+                    // Phát âm thanh tấn công
+                    PlayAttackSound();
 
                     // Kiểm tra va chạm và gây sát thương
                     Collider2D collInfo = Physics2D.OverlapCircle(attackPoint.position, attackRadius, attackLayer);
@@ -124,6 +135,15 @@ public class BoarEnemy : MonoBehaviour
             animator.SetBool("inRange", false);
             StartCoroutine(ChangeStateCooldown());
             Patrol();
+        }
+    }
+
+    private void PlayAttackSound()
+    {
+        // Kiểm tra xem có âm thanh để phát không
+        if (boarAttackSound != null)
+        {
+            audioSource.PlayOneShot(boarAttackSound); // Phát âm thanh tấn công
         }
     }
 

@@ -259,6 +259,7 @@ MonoBehaviour:
     m_Bits: 64
   trapDamageInterval: 1
   trapDamage: 1
+  attackSound: {fileID: 8300000, guid: fe33797de59c34f45ae31d0b9ca2bdc4, type: 3}
 --- !u!95 &4675361795524772470
 Animator:
   serializedVersion: 5

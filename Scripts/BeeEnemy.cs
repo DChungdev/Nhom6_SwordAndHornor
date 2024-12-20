@@ -35,6 +35,9 @@ public class BeeEnemy : MonoBehaviour
     public float attackRadius = 1.4f;
     public LayerMask attackLayer;
 
+    // Thêm AudioSource và AudioClip cho âm thanh tấn công
+    public AudioClip beeAttackSound; // Tệp âm thanh bee_attack.wav
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -42,6 +45,9 @@ public class BeeEnemy : MonoBehaviour
 
         currentHealth = maxHealth;
         thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
+
+        // Khởi tạo AudioSource
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     void Update()
@@ -202,6 +208,9 @@ public class BeeEnemy : MonoBehaviour
 
     public void Attack()
     {
+        // Phát âm thanh tấn công
+        PlayAttackSound();
+
         Collider2D collInfo = Physics2D.OverlapCircle(attackPoint.position, attackRadius, attackLayer);
 
         if (collInfo)
@@ -210,6 +219,15 @@ public class BeeEnemy : MonoBehaviour
             {
                 collInfo.gameObject.GetComponent<PlayerController>().TakeDamage(1);
             }
+        }
+    }
+
+    // Hàm phát âm thanh
+    private void PlayAttackSound()
+    {
+        if (beeAttackSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(beeAttackSound);
         }
     }
 
