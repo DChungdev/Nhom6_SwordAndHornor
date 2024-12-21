@@ -43,12 +43,19 @@ public class PlayerController : MonoBehaviour
     public int trapDamage = 1; // Lượng máu bị trừ mỗi lần
 
     public AudioClip attackSound; // Âm thanh tấn công
+    public AudioClip healSound; // Âm thanh hồi máu
+
+    public AudioClip damageSound;  // Biến chứa âm thanh khi player bị tấn công
+    private AudioSource audioSource;  // Biến lưu trữ AudioSource
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
         hp.text = currentHealth + " / " + maxHealth;
+
+        // Lấy AudioSource từ GameObject
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -188,6 +195,12 @@ public class PlayerController : MonoBehaviour
         hp.text = currentHealth + " / " + maxHealth;
         thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
         //CameraShake.instance.Shake(.11f, 3f);
+
+        // Phát âm thanh khi player bị tấn công
+        if (damageSound != null)
+        {
+            audioSource.PlayOneShot(damageSound);
+        }
     }
     public void ApplyKnockback(Vector2 direction)
     {
@@ -253,6 +266,13 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "HealthPotion")
         {
             Heal(1); // Hồi 1 máu (có thể thay đổi tùy ý)
+
+            // Phát âm thanh hồi máu tại vị trí của nhân vật
+            if (healSound != null)
+            {
+                AudioSource.PlayClipAtPoint(healSound, transform.position);
+            }
+
             Destroy(other.gameObject); // Xóa bình máu sau khi nhặt
         }
 

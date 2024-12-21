@@ -35,11 +35,18 @@ public class PatrolEnemy : MonoBehaviour
     private bool canChangeState = true; // Kiểm tra xem có thể thay đổi trạng thái hay không
     private float stateChangeCooldown = 1f; // Thời gian đợi trước khi thay đổi trạng thái (1 giây)
 
+    // Thêm trường AudioSource và AudioClip
+    private AudioSource audioSource;
+    public AudioClip attackSound;  // File âm thanh khi tấn công
+
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
+
+        // Lấy component AudioSource
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -83,6 +90,12 @@ public class PatrolEnemy : MonoBehaviour
             if (collInfo.gameObject.GetComponent<PlayerController>() != null)
             {
                 collInfo.gameObject.GetComponent<PlayerController>().TakeDamage(1);
+
+                // Phát âm thanh khi tấn công
+                if (attackSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(attackSound);  // Phát âm thanh
+                }
             }
         }
     }
