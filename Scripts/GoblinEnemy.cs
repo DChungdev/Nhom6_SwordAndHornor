@@ -34,11 +34,24 @@ public class GoblinEnemy : MonoBehaviour
     private bool canChangeState = true; // Kiểm tra xem có thể thay đổi trạng thái hay không
     private float stateChangeCooldown = 1f; // Thời gian đợi trước khi thay đổi trạng thái (1 giây)
 
+    // Biến cho âm thanh tấn công
+    public AudioClip attackClip;  // Âm thanh tấn công
+    private AudioSource audioSource;  // AudioSource để phát âm thanh
+
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         thanhMau.CapNhatThanhMau((float)currentHealth, (float)maxHealth);
+
+        // Khởi tạo AudioSource và gán vào đối tượng Goblin
+        audioSource = gameObject.AddComponent<AudioSource>();
+
+        // Gán âm thanh cho AudioSource (âm thanh tấn công)
+        if (attackClip != null)
+        {
+            audioSource.clip = attackClip;
+        }
     }
 
     // Update is called once per frame
@@ -75,6 +88,12 @@ public class GoblinEnemy : MonoBehaviour
 
     public void Attack()
     {
+        // Phát âm thanh tấn công khi thực hiện hành động tấn công
+        if (audioSource != null && attackClip != null)
+        {
+            audioSource.Play();  // Phát âm thanh tấn công
+        }
+
         Collider2D collInfo = Physics2D.OverlapCircle(attackPoint.position, attackRadius, attackLayer);
 
         if (collInfo)

@@ -36,8 +36,9 @@ public class BeeEnemy : MonoBehaviour
     public LayerMask attackLayer;
 
     // Thêm AudioSource và AudioClip cho âm thanh tấn công
-    public AudioClip beeAttackSound; // Tệp âm thanh bee_attack.wav
+    public AudioClip beeFlyingSound; // Âm thanh phát khi bay
     private AudioSource audioSource;
+    private bool isPlayingFlyingSound = false; // Để theo dõi trạng thái âm thanh
 
     void Start()
     {
@@ -48,6 +49,11 @@ public class BeeEnemy : MonoBehaviour
 
         // Khởi tạo AudioSource
         audioSource = gameObject.AddComponent<AudioSource>();
+        if (beeFlyingSound != null)
+        {
+            audioSource.clip = beeFlyingSound;
+            audioSource.loop = true; // Lặp âm thanh khi bay
+        }
     }
 
     void Update()
@@ -59,10 +65,12 @@ public class BeeEnemy : MonoBehaviour
         if (Vector2.Distance(transform.position, player.position) <= attackRange)
         {
             inRange = true;
+            PlayFlyingSound(); // Bật âm thanh khi trong phạm vi
         }
         else
         {
             inRange = false;
+            StopFlyingSound(); // Tắt âm thanh khi ra khỏi phạm vi
         }
 
         // Nếu đang chờ, thì tăng bộ đếm thời gian chờ
@@ -128,6 +136,23 @@ public class BeeEnemy : MonoBehaviour
         else
         {
             Patrol(); // Quái tuần tra nếu người chơi ngoài phạm vi
+        }
+    }
+    private void PlayFlyingSound()
+    {
+        if (!isPlayingFlyingSound && beeFlyingSound != null)
+        {
+            audioSource.Play();
+            isPlayingFlyingSound = true;
+        }
+    }
+
+    private void StopFlyingSound()
+    {
+        if (isPlayingFlyingSound)
+        {
+            audioSource.Stop();
+            isPlayingFlyingSound = false;
         }
     }
 
@@ -208,8 +233,8 @@ public class BeeEnemy : MonoBehaviour
 
     public void Attack()
     {
-        // Phát âm thanh tấn công
-        PlayAttackSound();
+        //// Phát âm thanh tấn công
+        //PlayAttackSound();
 
         Collider2D collInfo = Physics2D.OverlapCircle(attackPoint.position, attackRadius, attackLayer);
 
@@ -222,14 +247,14 @@ public class BeeEnemy : MonoBehaviour
         }
     }
 
-    // Hàm phát âm thanh
-    private void PlayAttackSound()
-    {
-        if (beeAttackSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(beeAttackSound);
-        }
-    }
+    //// Hàm phát âm thanh
+    //private void PlayAttackSound()
+    //{
+    //    if (beeAttackSound != null && audioSource != null)
+    //    {
+    //        audioSource.PlayOneShot(beeAttackSound);
+    //    }
+    //}
 
     public void TakeDamage(int damage)
     {

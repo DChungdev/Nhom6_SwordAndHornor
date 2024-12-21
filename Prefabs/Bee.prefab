@@ -141,7 +141,7 @@ MonoBehaviour:
   attackLayer:
     serializedVersion: 2
     m_Bits: 128
-  beeAttackSound: {fileID: 8300000, guid: bddb08ba554604a4db337e0d7ce14565, type: 3}
+  beeFlyingSound: {fileID: 8300000, guid: bddb08ba554604a4db337e0d7ce14565, type: 3}
 --- !u!61 &5066406575147694729
 BoxCollider2D:
   m_ObjectHideFlags: 0
