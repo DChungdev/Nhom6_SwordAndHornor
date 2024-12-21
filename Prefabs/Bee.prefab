@@ -126,7 +126,7 @@ MonoBehaviour:
   maxHealth: 5
   currentHealth: 0
   thanhMau: {fileID: 3398734153544128690}
-  player: {fileID: 0}
+  player: {fileID: 4731083924376498805, guid: 64cb0d179b0cb2b43a103536ebd830c0, type: 3}
   animator: {fileID: 1345319653635274991}
   attackRange: 9
   chaseSpeed: 4

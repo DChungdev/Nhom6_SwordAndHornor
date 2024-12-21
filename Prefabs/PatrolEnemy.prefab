@@ -557,7 +557,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   inRange: 0
-  player: {fileID: 0}
+  player: {fileID: 4731083924376498805, guid: 64cb0d179b0cb2b43a103536ebd830c0, type: 3}
   attackRange: 7
   retrieveDistance: 2.5
   chaseSpeed: 4
